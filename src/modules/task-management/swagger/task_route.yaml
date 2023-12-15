@@ -1,0 +1,129 @@
+paths:
+  /task-details:
+    ##################### GET ALL ##########################
+    get:
+      tags:
+        - Task Management
+      summary: "Retrieve task details"
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          type: string
+          description: Task id
+        - in: query
+          name: title
+          type: string
+          description: Task title
+      responses:
+        200:
+          $ref: "#components/responses/200"
+        401:
+          $ref: "#components/responses/401"
+        500:
+          $ref: "#components/responses/500"
+
+    post:
+      tags:
+        - Task Management
+      summary: "Add task details"
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: "test"
+              description:
+                type: string
+                example: "test"
+
+      responses:
+        200:
+          allOf:
+            - $ref: "#components/responses/200"
+            - schema:
+                type: object
+        500:
+          $ref: "#components/responses/500"
+
+    ##################### GET ONE BY ID ##########################
+  /task-details/{id}:
+    get:
+      tags:
+        - Task Management
+      summary: "Retrieve task by ID "
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: task id
+      responses:
+        200:
+          $ref: "#components/responses/200"
+        401:
+          $ref: "#components/responses/401"
+        500:
+          $ref: "#components/responses/500"
+
+    ##################### PUT ##########################
+    put:
+      tags:
+        - Task Management
+      summary: "Update task"
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: task id
+        - in: body
+          name: body
+          description: Attributes needed to update
+          require: true
+          schema:
+            type: "object"
+            properties:
+              isCompleted:
+                type: boolean
+                example: true
+
+      responses:
+        200:
+          $ref: "#components/responses/200"
+        401:
+          $ref: "#components/responses/401"
+        404:
+          $ref: "#components/responses/404"
+        500:
+          $ref: "#components/responses/500"
+
+    ##################### DELETE ##########################
+
+    delete:
+      tags:
+        - Task Management
+      summary: "Retrieve task by ID "
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          description: task id
+      responses:
+        200:
+          $ref: "#components/responses/200"
+        401:
+          $ref: "#components/responses/401"
+        500:
+          $ref: "#components/responses/500"
